@@ -25,6 +25,7 @@ const WeatherSchema = new mongoose.Schema({
 
 const Weather = mongoose.model('Weather', WeatherSchema);
 
+// this api is getting weather data from Openweatherapi and saving it to mongoDB
 app.post('/weather', async (req, res) => {
   try {
     const cityName = req.body.city;
@@ -55,11 +56,12 @@ app.post('/weather', async (req, res) => {
   }
 });
 
+
+// This api is geeting history of the weather from database
 app.get('/weather/:city', async (req, res) => {
   try {
     const cityName = req.params.city;
     
-    // Find all weather records for this city
     const weatherList = await Weather.find({ 
       city: new RegExp(cityName, 'i') 
     }).sort({ date: -1 });
